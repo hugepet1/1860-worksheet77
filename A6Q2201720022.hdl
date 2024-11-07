@@ -5,9 +5,9 @@ CHIP A6Q2201720022 {
     PARTS:
     Not(in=a, out=nota);
     Not(in=b, out=notb);
-    Not(in=c, out=notc);
+    Not(in=c, out=notcd);
     Not(in=d, out=notd);
-    And(a=nota, b=notb, c=notc, d=d, out=term1);  
+    And(a=nota, b=notb,c=notcd, d=d, out=term1);  
     And(a=nota, b=notb, c=c, d=notd, out=term2); 
     And(a=nota, b=b, c=c, d=notd, out=term3);     
     And(a=a, b=notb, c=notc, d=notd, out=term4);  
