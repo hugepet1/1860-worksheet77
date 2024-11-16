@@ -9,7 +9,7 @@ CHIP A6Q2201720022 {
     Not (in=d, out=notd);
 
     And (a=nota, b=notb, out=term1);
-    And (a=A1, b=notd, out=term2);
+    And (a=term1, b=notd, out=term2);
     And (a=term2, b=term1, out=com1);
 
     And (a=nota, b=b, out=termm1);
