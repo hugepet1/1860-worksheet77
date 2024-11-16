@@ -36,5 +36,5 @@ CHIP A6Q2201720022 {
     Or (a=O1, b=com3, out=O2);
     Or (a=O2, b=com4, out=O3);
     Or (a=O3, b=com5, out=O4);
-    Or (a=O4, b=com6, out=f;
+    Or (a=O4, b=com6, out=f);
 }
