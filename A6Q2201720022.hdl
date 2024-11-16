@@ -9,19 +9,23 @@ CHIP A6Q2201720022 {
     Not(in=c, out=notc);
     Not(in=d, out=notd);
 
-    // AND gates for simplified terms
-    And(a=nota, b=notb, out=term1); // term1 = ¬a ∧ ¬b
-    And(a=a, b=b, out=term2);       // term2 = a ∧ b
-    And(a=term1, b=d, out=term3);   // term3 = (¬a ∧ ¬b) ∧ d
-    And(a=term2, b=d, out=term4);   // term4 = (a ∧ b) ∧ d
+    // AND gates for d ∧ (¬a ∧ ¬b ∨ a ∧ b)
+    And(a=nota, b=notb, out=and1);       // ¬a ∧ ¬b
+    And(a=a, b=b, out=and2);             // a ∧ b
+    Or(a=and1, b=and2, out=or1);         // ¬a ∧ ¬b ∨ a ∧ b
+    And(a=d, b=or1, out=term1);          // d ∧ (¬a ∧ ¬b ∨ a ∧ b)
 
-    And(a=nota, b=b, out=term51);
-    And(a=term51, b=c, out=term5); // term5 = ¬a ∧ b ∧ c ∧ ¬d
-    And(a=a, b=notb, out=term61);
-    And(a=term61, b=notc, out=term6); // term6 = a ∧ ¬b ∧ ¬c ∧ ¬d
+    // AND gates for ¬d ∧ ¬a ∧ b ∧ c
+    And(a=nota, b=b, out=and3);          // ¬a ∧ b
+    And(a=and3, b=c, out=and4);          // ¬a ∧ b ∧ c
+    And(a=notd, b=and4, out=term2);      // ¬d ∧ ¬a ∧ b ∧ c
 
-    // Combine terms using OR gates
-    Or(a=term3, b=term4, out=part1);    // part1 = term3 ∨ term4
-    Or(a=term5, b=term6, out=part2);   // part2 = term5 ∨ term6
-    Or(a=part1, b=part2, out=f);       // f = part1 ∨ part2
+    // AND gates for ¬d ∧ a ∧ ¬b ∧ ¬c
+    And(a=a, b=notb, out=and5);          // a ∧ ¬b
+    And(a=and5, b=notc, out=and6);       // a ∧ ¬b ∧ ¬c
+    And(a=notd, b=and6, out=term3);      // ¬d ∧ a ∧ ¬b ∧ ¬c
+
+    // OR gates to combine all terms
+    Or(a=term1, b=term2, out=or2);
+    Or(a=or2, b=term3, out=f);           // Final output: f = term1 ∨ term2 ∨ term3
 }
