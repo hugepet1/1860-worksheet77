@@ -8,17 +8,17 @@ CHIP A6Q2201720022 {
     Not (in=c, out=notc);
     Not (in=d, out=notd);
 
-    And (a=nota, b=notb, out=A1);
-    And (a=A1, b=notd, out=A2);
-    And (a=A2, b=A2, out=com1);
+    And (a=nota, b=notb, out=term1);
+    And (a=A1, b=notd, out=term2);
+    And (a=term2, b=term1, out=com1);
 
-    And (a=nota, b=b, out=B1);
-    And (a=notc, b=notd, out=B2);
-    And (a=B1, b=B2, out=com2);
+    And (a=nota, b=b, out=termm1);
+    And (a=notc, b=notd, out=termm2);
+    And (a=termm1, b=termm2, out=com2);
 
-    And (a=nota, b=b, out=C1);
-    And (a=d, b=c, out=C2);
-    And (a=C1, b=C2, out=com3);
+    And (a=nota, b=b, out=termmm1);
+    And (a=d, b=c, out=termmm2);
+    And (a=termmm1, b=termmm2, out=com3);
 
     And (a=a, b=b, out=D1);
     And (a=D1, b=notd, out=D2);
