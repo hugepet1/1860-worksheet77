@@ -19,6 +19,6 @@ CHIP A6Q2201720022 {
     And(a=term33, b=notd, out=term333);
 
     // Combine terms with OR gates
-    Or(a=term11, b=term22, out=term4)
-    Or(a=term4, b=term333, out=f)
+    Or(a=term11, b=term22, out=term4);
+    Or(a=term4, b=term333, out=f);
 }
