@@ -15,10 +15,10 @@ CHIP A6Q2201720022 {
     And(a=term1, b=d, out=term3);   // term3 = (¬a ∧ ¬b) ∧ d
     And(a=term2, b=d, out=term4);   // term4 = (a ∧ b) ∧ d
 
-    And(a=nota, b=b, out=term5_1);
-    And(a=term5_1, b=c, out=term5); // term5 = ¬a ∧ b ∧ c ∧ ¬d
-    And(a=a, b=notb, out=term6_1);
-    And(a=term6_1, b=notc, out=term6); // term6 = a ∧ ¬b ∧ ¬c ∧ ¬d
+    And(a=nota, b=b, out=term51);
+    And(a=term51, b=c, out=term5); // term5 = ¬a ∧ b ∧ c ∧ ¬d
+    And(a=a, b=notb, out=term61);
+    And(a=term61, b=notc, out=term6); // term6 = a ∧ ¬b ∧ ¬c ∧ ¬d
 
     // Combine terms using OR gates
     Or(a=term3, b=term4, out=part1);    // part1 = term3 ∨ term4
