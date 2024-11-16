@@ -13,5 +13,5 @@ CHIP A6Q2201720022 {
     And(a=term1, b=c, out=term2);
     And(a=term2, b=d, out=term3);
 
-    Or(a=term3,b=other_terms,out=f);
+    Or(a=term3, b=other_terms, out=f);
 }
