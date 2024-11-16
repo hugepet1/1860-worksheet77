@@ -9,23 +9,13 @@ CHIP A6Q2201720022 {
     Not(in=c, out=notc);
     Not(in=d, out=notd);
 
-    // AND gates for d ∧ (¬a ∧ ¬b ∨ a ∧ b)
-    And(a=nota, b=notb, out=and1);       // ¬a ∧ ¬b
-    And(a=a, b=b, out=and2);             // a ∧ b
-    Or(a=and1, b=and2, out=or1);         // ¬a ∧ ¬b ∨ a ∧ b
-    And(a=d, b=or1, out=term1);          // d ∧ (¬a ∧ ¬b ∨ a ∧ b)
+    // AND gates for each term
+    And(a=nota, b=notb, out=term11);   // Intermediate term1_1 = ¬a ∧ ¬b
+    And(a=term11, b=d, out=term1);    // term1 = ¬a ∧ ¬b ∧ d
 
-    // AND gates for ¬d ∧ ¬a ∧ b ∧ c
-    And(a=nota, b=b, out=and3);          // ¬a ∧ b
-    And(a=and3, b=c, out=and4);          // ¬a ∧ b ∧ c
-    And(a=notd, b=and4, out=term2);      // ¬d ∧ ¬a ∧ b ∧ c
+    // Add similar debugging outputs for other terms...
 
-    // AND gates for ¬d ∧ a ∧ ¬b ∧ ¬c
-    And(a=a, b=notb, out=and5);          // a ∧ ¬b
-    And(a=and5, b=notc, out=and6);       // a ∧ ¬b ∧ ¬c
-    And(a=notd, b=and6, out=term3);      // ¬d ∧ a ∧ ¬b ∧ ¬c
-
-    // OR gates to combine all terms
-    Or(a=term1, b=term2, out=or2);
-    Or(a=or2, b=term3, out=f);           // Final output: f = term1 ∨ term2 ∨ term3
+    // Combine terms with OR gates
+    Or(a=term1, b=term2, out=or1);
+    Or(a=or1, b=term3, out=f);
 }
