@@ -1,7 +1,7 @@
 CHIP A6Q2201720022 {
     IN a, b, c, d;
     OUT f;
-
+    //
     PARTS:
     Not (in=a, out=nota);
     Not (in=b, out=notb);
@@ -9,22 +9,31 @@ CHIP A6Q2201720022 {
     Not (in=d, out=notd);
 
     And (a=nota, b=notb, out=term1);
-    And (a=term1, b=notd, out=term2);
-    And (a=term2, b=term1, out=com1);
+    And (a=term1, b=notc, out=term2);
+    And (a=term2, b=d, out=com1);
 
-    And (a=nota, b=b, out=termm1);
-    And (a=notc, b=notd, out=termm2);
-    And (a=termm1, b=termm2, out=com2);
+    And (a=nota, b=notb, out=B1);
+    And (a=B1, b=c, out=B2);
+    And (a=B2, b=d, out=com2);
 
-    And (a=nota, b=b, out=termmm1);
-    And (a=d, b=c, out=termmm2);
-    And (a=termmm1, b=termmm2, out=com3);
+    And (a=nota, b=b, out=C1);
+    And (a=C1, b=c, out=C2);
+    And (a=C2, b=notd, out=com3);
 
-    And (a=a, b=b, out=D1);
-    And (a=D1, b=notd, out=D2);
-    And (a=D1, b=D2, out=com4);
+    And (a=a, b=notb, out=D1);
+    And (a=D1, b=notc, out=D2);
+    And (a=D2, b=notd, out=com4);
 
-    Or (a=com1, b=com2, out=OUT1);
-    Or (a=OUT1, b=com3, out=OUT2);
-    Or (a=OUT2, b=com4, out=f);
+    And (a=a, b=b, out=E1);
+    And (a=E1, b=c, out=E2);
+    And (a=E2, b=notd, out=com5);
+
+    And (a=a, b=b, out=F1);
+    And (a=F1, b=c, out=F2);
+    And (a=F2, b=d, out=com6);
+
+    Or (a=com1, b=com2, out=O1);
+    Or (a=O1, b=com3, out=O2);
+    Or (a=O2, b=com4, out=O3);
+    Or (a=O3, b=com5, out=f);
 }
