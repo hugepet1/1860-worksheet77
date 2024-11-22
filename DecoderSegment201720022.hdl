@@ -1,40 +1,21 @@
-CHIP A6Q2201720022 {
-    IN a, b, c, d;
-    OUT f;
-    //
+CHIP DecoderSegment<your student number> {
+    IN A,B,C,D;
+    OUT boutput;
+
     PARTS:
-    Not (in=a, out=nota);
-    Not (in=b, out=notb);
-    Not (in=c, out=notc);
-    Not (in=d, out=notd);
+    Not (in=A, out=notA);
+    Not (in=B, out=notB);
+    Not (in=C, out=notC);
+    Not (in=D, out=notD);
 
-    And (a=nota, b=notb, out=term1);
-    And (a=term1, b=notc, out=term2);
-    And (a=term2, b=d, out=com1);
+    And(a=A, b=C, out=term1);          /
+    And(a=C, b=NotD, out=term2);    
+    And(a=D, b=NotB, out=term3);     
+    And(a=NotA, b=NotB, out=term4);
+    And(a=D, b=NotA, c=NotC, out=term5); 
 
-    And (a=nota, b=notb, out=B1);
-    And (a=B1, b=c, out=B2);
-    And (a=B2, b=d, out=com2);
-
-    And (a=nota, b=b, out=C1);
-    And (a=C1, b=c, out=C2);
-    And (a=C2, b=notd, out=com3);
-
-    And (a=a, b=notb, out=D1);
-    And (a=D1, b=notc, out=D2);
-    And (a=D2, b=notd, out=com4);
-
-    And (a=a, b=b, out=E1);
-    And (a=E1, b=c, out=E2);
-    And (a=E2, b=notd, out=com5);
-
-    And (a=a, b=b, out=F1);
-    And (a=F1, b=c, out=F2);
-    And (a=F2, b=d, out=com6);
-
-    Or (a=com1, b=com2, out=O1);
-    Or (a=O1, b=com3, out=O2);
-    Or (a=O2, b=com4, out=O3);
-    Or (a=O3, b=com5, out=O4);
-    Or (a=O4, b=com6, out=f);
+    Or(a=term1, b=term2, out=temp1);
+    Or(a=temp1, b=term3, out=temp2);
+    Or(a=temp2, b=term4, out=temp3);
+    Or(a=temp3, b=term5, out=boutput);
 }
