@@ -13,8 +13,8 @@ CHIP DecoderSegment201720022 {
     And(a=D, b=NotB, out=term3);     // D & ~B
     And(a=NotA, b=NotB, out=term4);// ~A & ~B
 
-    And(a=D, b=notA, out=temp5);       // D & ~A
-    And(a=temp5, b=notC, out=term5);   // (D & ~A) & ~C
+    And(a=D, b=NotA, out=temp5);       // D & ~A
+    And(a=temp5, b=NotC, out=term5);   // (D & ~A) & ~C
 
     Or(a=term1, b=term2, out=temp1);
     Or(a=temp1, b=term3, out=temp2);
