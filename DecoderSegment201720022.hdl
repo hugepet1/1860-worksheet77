@@ -8,16 +8,16 @@ CHIP DecoderSegment201720022 {
     Not (in=C, out=NotC);
     Not (in=D, out=NotD);
 
-    And(a=A, b=C, out=term1);          // A & C
-    And(a=C, b=NotD, out=term2);     // C & ~D
-    And(a=D, b=NotB, out=term3);     // D & ~B
-    And(a=NotA, b=NotB, out=term4);// ~A & ~B
+    And(a=A,b=c,out=term1)
+    And(a=A,b=NotB,out=term2)
+    And(a=B,b=NotD,out=term3)
+    And(a=NotC,b=NotD,out=term4)
+    And(a=NotA,b=B,out=mid1)
+    And(a=mid1,b=NotC,out=term5)
 
-    And(a=D, b=NotA, out=temp5);       // D & ~A
-    And(a=temp5, b=NotC, out=term5);   // (D & ~A) & ~C
+    or(a=term1,b=term2,out=f1)
+    or(a=f1,b=term3,out=f2)
+    or(a=f2,b=term4,out=f3)
+    or(a=f3,b=term5,out=b)
 
-    Or(a=term1, b=term2, out=temp1);
-    Or(a=temp1, b=term3, out=temp2);
-    Or(a=temp2, b=term4, out=temp3);
-    Or(a=temp3, b=term5, out=b);
 }
