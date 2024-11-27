@@ -1,0 +1,25 @@
+CHIP DecoderSegmentB {
+    IN A, B, C, D;
+    OUT out;
+
+    PARTS:
+    // Invert inputs
+    Not (in=A, out=NotA);
+    Not (in=B, out=NotB);
+    Not (in=C, out=NotC);
+    Not (in=D, out=NotD);
+
+    // Intermediate terms
+    And (a=A, b=C, out=term1);
+    And (a=A, b=NotB, out=term2);
+    And (a=B, b=NotD, out=term3);
+    And (a=NotC, b=NotD, out=term4);
+    And (a=NotA, b=B, out=mid1);
+    And (a=mid1, b=NotC, out=term5);
+
+    // Combine terms
+    Or (a=term1, b=term2, out=f1);
+    Or (a=f1, b=term3, out=f2);
+    Or (a=f2, b=term4, out=f3);
+    Or (a=f3, b=term5, out=out);
+}
