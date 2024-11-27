@@ -1,0 +1,14 @@
+CHIP Decoder2436105 {
+    IN A, B, C, D;
+    OUT a, b, c, d, e, f, g;
+
+    PARTS:
+    // Each DecoderSegment handles one segment of the display
+    DecoderSegmentA(A=A, B=B, C=C, D=D, out=a);
+    DecoderSegmentB(A=A, B=B, C=C, D=D, out=b);
+    DecoderSegmentC(A=A, B=B, C=C, D=D, out=c);
+    DecoderSegmentD(A=A, B=B, C=C, D=D, out=d);
+    DecoderSegmentE(A=A, B=B, C=C, D=D, out=e);
+    DecoderSegmentF(A=A, B=B, C=C, D=D, out=f);
+    DecoderSegmentG(A=A, B=B, C=C, D=D, out=g);
+}
