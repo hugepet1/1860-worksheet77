@@ -4,4 +4,11 @@ CHIP DisplayCounter2436105
     OUT a,b,c,d,e,f,g;
 
     PARTS:
+    Register(in=R,load=loadSignal,out=0);
+    Inc16(in=Q，out[0..15]=I);
+    Mux16(a=I,b=false,sel=reset, out=R);
+    Xor(a=inc,b=reset,out=loadSignal);
+    0r16(a=Q,b[0..15]=false, out[4..11]=drop, out[3]=A, out[2]=B, out[1]=C, out[0]=D);
+
+   Decoder201720022(A=A,B=B,C=C,D=D,a=a,b=b,c=c,d=d,e=e,f=f,g=g);
 }
