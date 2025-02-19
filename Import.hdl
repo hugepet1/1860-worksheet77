@@ -1,0 +1,10 @@
+CHIP Import {
+    IN in[16];
+    OUT A,B,C,D;
+        
+    PARTS:    
+    Or(a=in[3],b=false,out=A);
+    Or(a=in[2],b=false,out=B);
+    Or(a=in[1],b=false,out=C);
+    Or(a=in[0],b=false,out=D);
+}
