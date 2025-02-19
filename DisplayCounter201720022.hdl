@@ -1,31 +1,12 @@
-CHIP DisplayCounter201720022 {
+CHIP DisplayCounter201720022 { 
     IN inc, reset;
     OUT a, b, c, d, e, f, g;
 
     PARTS:
-    // 4-bit register to store current count (implicit clock)
-    Register4(in=nextValue[0..3], load=true, out=currentValue[0..3]);
+    Import(in=currentvalue,A=A,B=B,C=C,D=D);
 
-    // 16-bit incrementer (Incl6) for 4-bit counter logic
-    // Extend 4-bit current value to 16 bits, increment, then truncate back to 4 bits
-    Incl6(in[0..3]=currentValue[0..3], in[4..15]=false, out=incremented16);
-    Splitter(in=incremented16, out[0..3]=incrementedValue[0..3], out[4..15]=dummy1);
+    Counter(inc=inc, reset=reset, out=currentvalue);
 
-    // Use Mux16 to simulate 4-bit MUX for "inc" control
-    // Select between current value (a=0-3) and incremented value (b=0-3)
-    Mux16(a[0..3]=currentValue[0..3], a[4..15]=false,
-          b[0..3]=incrementedValue[0..3], b[4..15]=false,
-          sel=inc, out=afterInc);
+    Decoder201720022(A=A,B=B,C=C,D=D,a=a,b=b,c=c,d=d,e=e,f=f,g=g);
 
-    // Use Mux16 to simulate 4-bit MUX for "reset" control
-    // Reset has priority: sel=reset → output 0
-    Mux16(a[0..3]=afterInc[0..3], a[4..15]=false,
-          b[0..15]=false,  // Force 0 when reset=1
-          sel=reset, out=nextValue);
-
-    // 4-bit to 7-segment decoder (maps 0-15 to hex digits 0-F)
-    SevenSegDecoder(
-        in=currentValue[0..3],
-        a=a, b=b, c=c, d=d, e=e, f=f, g=g
-    );
 }
