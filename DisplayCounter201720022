@@ -1,10 +1,23 @@
-CHIP DisplayCounter201720022 { 
+CHIP DisplayCounter201720022 {
     IN inc, reset;
     OUT a, b, c, d, e, f, g;
 
     PARTS:
-    Import(in=currentvalue,A=A,B=B,C=C,D=D);
-    Counter(inc=inc, reset=reset, out=currentvalue);
-    Decoder(A=A,B=B,C=C,D=D,a=a,b=b,c=c,d=d,e=e,f=f,g=g);
+    // 4-bit register to store current count (clock implicitly handled)
+    Register(in=nextValue, load=true, out=currentValue);
 
+    // Increment current value by 1 (4-bit incrementer)
+    Inc4(in=currentValue, out=incrementedValue);
+
+    // Mux: inc=1 → select incrementedValue, else keep currentValue
+    Mux4(a=currentValue, b=incrementedValue, sel=inc, out=afterInc);
+
+    // Mux: reset=1 → force 0, else use afterInc result
+    Mux4(a=afterInc, b=0, sel=reset, out=nextValue);
+
+    // Decode 4-bit count to 7-segment display signals (a-g)
+    SevenSegDecoder(
+        in=currentValue,
+        a=a, b=b, c=c, d=d, e=e, f=f, g=g
+    );
 }
