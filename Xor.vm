@@ -1,0 +1,14 @@
+// Push x (argument[0]) onto the stack
+push argument 0
+
+// Push y (argument[1]) onto the stack
+push argument 1
+
+// Perform XOR operation on the top two stack values (x XOR y)
+xor
+
+// Pop the result (z) from the stack and store it in argument[2]
+pop argument 2
+
+// Push z back onto the stack to leave it at the bottom of the stack
+push argument 2
