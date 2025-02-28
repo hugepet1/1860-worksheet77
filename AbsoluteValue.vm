@@ -1,0 +1,16 @@
+push argument 0
+push argument 0
+push 0
+lt
+if-goto NEGATIVE
+push argument 0
+push 0
+pop argument 2
+goto END
+(NEGATIVE)
+push argument 0
+neg
+push 1
+pop argument 2
+(END)
+pop argument 1
