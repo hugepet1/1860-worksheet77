@@ -1,0 +1,129 @@
+
+
+function Sys.xor 2
+push argument 0
+push argument 1
+or
+pop local 0
+push argument 0
+push argument 1
+and
+not
+pop local 1
+push local 1
+push local 0
+and
+return
+
+
+
+function Sys.shiftLeft 2
+push argument 0 //x
+pop local 0
+
+
+
+label While
+push local 1      //y
+push argument 1
+eq
+if-goto END
+
+push constant 1
+push local 1
+add
+pop local 1 // time +=1
+
+push local 0
+push local 0
+add
+pop local 0 // shift
+goto While
+
+
+
+label END
+push local 0
+return
+
+
+
+
+function Sys.computeParity 3
+push constant 0
+pop local 0 // parityBit
+push constant 0
+pop local 1 // i
+
+label LOOP
+
+push local 1 
+push constant 14
+eq
+if-goto END   // FOR LOOP
+
+
+push constant 1
+push local 1
+call Sys.shiftLeft 2// shift i positions
+pop local 2  //bitmask
+
+push constant 1
+push local 1
+add
+pop local 1    // ++i
+
+
+
+push local 2
+push argument 2
+and
+push constant 0   // if (ithBit != 0)
+eq
+if-goto LOOP
+
+push local 0 
+push constant 1
+call Sys.xor 2
+pop local 0     //parityBit = parityBit ^ 1
+
+goto LOOP
+
+
+label END 
+push local 0
+return
+
+
+
+
+
+function Sys.encode 1
+push argument 0
+call Sys.computeParity 3
+push constant 1
+eq
+if-goto ODD
+
+push constant 32767
+push argument 0
+and
+return
+goto END
+
+label ODD 
+push constant 32767
+push constant 1
+add
+push argument 0
+or
+return
+
+label END
+
+
+function Sys.init 0
+    call Sys.encode 1
+
+label WHILE
+    goto WHILE
